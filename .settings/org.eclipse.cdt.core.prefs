@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/LPC_DEPLOY/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/LPC_DEPLOY/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/LPC_DEPLOY/value=/Users/adarshmani/berkeley/CS294-84/binary/mbed-on-Yosemite.app
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/PATH/delimiter=\:
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/PATH/operation=append
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/PATH/value=/usr/bin\:/bin\:/usr/sbin\:/sbin\:/Users/adarshmani/berkeley/EEC249A/project/misc/adamgreen-gcc4mbed-1f1ebc4/gcc-arm-none-eabi/bin
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.macosx.base.556916609.382789931/appendContributed=true
