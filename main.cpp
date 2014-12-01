@@ -30,7 +30,7 @@ static volatile uint16_t led1_handler;
 Serial kl25z(P0_9,P0_11);
 
 uint8_t led_state, button_state;
-char valRec[14];
+char valRec[16];
 
 void disconnectionCallback(Gap::Handle_t handle, Gap::DisconnectionReason_t reason)
 {
@@ -112,7 +112,7 @@ int main(void)
         if (kl25z.readable()){
             valRec[count] = kl25z.getc();
             count++;
-            if (count == 14)
+            if (count == 16)
             {
                 ble.updateCharacteristicValue(xbee_characteristics.getValueAttribute().getHandle(),
                                           (uint8_t *)valRec, sizeof(valRec));
