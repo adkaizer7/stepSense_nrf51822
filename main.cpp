@@ -30,7 +30,7 @@ static volatile uint16_t led1_handler;
 Serial kl25z(P0_9,P0_11);
 
 uint8_t led_state, button_state;
-int valRec;
+char valRec[14];
 
 void disconnectionCallback(Gap::Handle_t handle, Gap::DisconnectionReason_t reason)
 {
@@ -65,6 +65,7 @@ int main(void)
     button2.rise(&button2Pressed);
     led1 = 0;
     led2 = 0;
+    int count = 0;
 
     // just a simple service example
     // o led1 characteristics, you can write from the phone to control led1
@@ -81,7 +82,7 @@ int main(void)
         GattCharacteristic::BLE_GATT_CHAR_PROPERTIES_NOTIFY);
 
     GattCharacteristic xbee_characteristics(
-        XBEE_UUID, (uint8_t *)&valRec, sizeof(valRec), sizeof(valRec),
+        XBEE_UUID, (uint8_t *)valRec, sizeof(valRec), sizeof(valRec),
         GattCharacteristic::BLE_GATT_CHAR_PROPERTIES_READ |
         GattCharacteristic::BLE_GATT_CHAR_PROPERTIES_NOTIFY);
 
@@ -108,14 +109,18 @@ int main(void)
     ble.startAdvertising();
 
     while (true) {
-    	if (kl25z.readable()){
-    		led1 = !led1;
-    		valRec = kl25z.getc();
-            ble.updateCharacteristicValue(xbee_characteristics.getValueAttribute().getHandle(),
-                                          (uint8_t *)&valRec, sizeof(valRec));
-
-    	}
-    	else if (is_button_pressed) {
+        if (kl25z.readable()){
+            valRec[count] = kl25z.getc();
+            count++;
+            if (count == 14)
+            {
+                ble.updateCharacteristicValue(xbee_characteristics.getValueAttribute().getHandle(),
+                                          (uint8_t *)valRec, sizeof(valRec));
+                count  = 0;
+                led1 = !led1;
+            }
+        }
+        else if (is_button_pressed) {
             // if button pressed, we update the characteristics
             led2 = !led2;
             //int valRec = kl25z.getc();
@@ -125,7 +130,7 @@ int main(void)
             is_button_pressed = false;
 
         } else {
-            ble.waitForEvent();
+            //ble.waitForEvent();
         }
     }
 }
